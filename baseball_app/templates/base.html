@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+html, body {
+    height: 100%; /* フルスクリーンの高さを設定 */
+    margin: 0; /* マージンをゼロに */
+    display: flex; /* フレックスボックスの使用 */
+    flex-direction: column; /* 縦方向の配置 */
+    justify-content: center; /* 縦方向の中心揃え */
+    align-items: center; /* 横方向の中心揃え */
+    text-align: center; /* テキストを中心揃え */
+    background: #f2f2f2; /* 背景色の設定 */
+}
+
+/* ウェルカムメッセージのスタイル設定 */
+.welcome-container {
+    margin-bottom: 20px; /* メッセージとボタンの間のスペース */
+}
+
+/* ボタンのスタイル設定 */
+.button {
+    display: inline-block; /* インラインブロック要素に設定 */
+    padding: 10px 20px; /* 内側の余白を設定 */
+    margin: 5px; /* 外側の余白を設定 */
+    text-decoration: none; /* テキストの下線を消去 */
+    color: white; /* テキストの色 */
+    background-color: #007bff; /* ボタンの背景色 */
+    border: none; /* ボーダーを無しに */
+    border-radius: 5px; /* 角を丸める */
+    cursor: pointer; /* マウスカーソルの形状をポインタに */
+}
+
+/* ボタンにホバーした時のスタイル */
+.button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+    opacity: 0.8; /* 透明度を少し下げる */
+}
+.centered-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .content {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+</style>
+</head>
+<html>
+  <body>
+    <head>
+        <meta charset="utf-8">
+        <title>プロ野球観戦記録アプリ</title>
+    </head>
+       <!-- コンテンツブロックの開始 -->
+  <div class="content">
+    {% block content %}
+    <!-- この中に各ページの内容が入ります -->
+    {% endblock %}
+  </div>
+  {% if user.is_authenticated %}
+      {% if request.resolver_match.url_name not in "change_username,change_email,change_password" %}
+      <!-- 認証済みユーザー向けのナビゲーションバー -->
+      <div class="nav-bar-authenticated">
+        <a href="{% url 'calendar' %}" class="button">カレンダー</a>
+        <a href="{% url 'user:logout' %}" class="button">ログアウト</a>
+        <a href="{% url 'user:settings' %}" class="button">設定</a>
+        <a href="{% url 'admin:index' %}" class="button">管理画面</a>
+      </div>
+      {% endif %}
+      {% else %}
+        {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' %}
+      <!-- ログインしていないユーザー向けのナビゲーションバー -->
+      <div class="nav-bar">
+        <a href="{% url 'user:login' %}" class="button">ログイン</a>
+        <a href="{% url 'user:register' %}" class="button">新規登録画面</a>
+      </div>
+      {% endif %}
+    {% endif %}
+    </body>
+  </html> 

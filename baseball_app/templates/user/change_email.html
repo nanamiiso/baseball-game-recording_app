@@ -1,0 +1,33 @@
+<style>
+    /* ボタンを下に配置するためのスタイル */
+    .form-buttons {
+        display: flex; /* フレックスボックスを有効にする */
+        justify-content: center; /* ボタンを中央に配置する */
+        gap: 10px; /* ボタン間の間隔 */
+        margin-top: 15px; /* フォームとの間隔 */
+    }
+    
+    /* ボタン共通のスタイル */
+    .button {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        width: 150px; /* 幅を150pxに固定 */
+    }
+    </style>
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" class="form-container">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-buttons">
+        <button type="submit" class="button" style="background-color: #4CAF50;">変更を保存</button>
+        <a href="{% url 'user:settings' %}" class="button">戻る</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,55 @@
+<style>
+    /* 登録ボタンのスタイル */
+    button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #4CAF50; /* ボタンの背景色 */
+        color: white; /* テキストの色 */
+        border: none; /* ボーダーなし */
+        border-radius: 5px; /* 角を丸める */
+        cursor: pointer; /* マウスカーソルの形状をポインタに */
+        font-size: 16px; /* フォントサイズ */
+    }
+
+    .back-button {
+        padding: 10px 20px;
+        background-color: #007bff; /* ボタンの背景色 */
+        color: white; /* テキストの色 */
+        border: none; /* ボーダーなし */
+        border-radius: 5px; /* 角を丸める */
+        cursor: pointer; /* マウスカーソルの形状をポインタに */
+        font-size: 16px; /* フォントサイズ */
+    }
+
+    /* ボタンのホバー時のスタイル */
+    button[type="submit"]:hover {
+        background-color: #45a049; /* ホバー時の背景色 */
+    }
+
+    .back-button:hover {
+        background-color: #0056b3; /* ホバー時の背景色 */
+    }
+</style>
+
+{% extends "base.html" %}
+{% block nav %}
+<!-- ナビゲーションバーを非表示にする -->
+{% endblock %}
+
+{% if messages %}
+    {% for message in messages %}
+        <p><strong>{{ message }}</strong></p>
+    {% endfor %}
+{% endif %}
+
+{% block content %}
+<h1>新規登録</h1>
+<form method="POST" action="{% url 'user:register' %}">
+    {% csrf_token %}
+    {{ user_form.as_p }}  <!-- 'user_form'を使う -->
+    <button type="submit">登録</button>
+    <a href="{% url 'user:index' %}" class="button button-home" >トップに戻る</a>
+</form>
+{% endblock %}
+
+
+

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<style>
+.content {
+    max-width: 600px; /* 任意の最大幅を設定 */
+    margin: 0 auto; /* 上下のマージンは0、左右のマージンは自動で中央揃え */
+    text-align: center; /* テキストを中央揃え */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .buttons {
+    margin-top: 20px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px; /* ボタン間の間隔 */
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px; /* 角丸 */
+    transition: background-color 0.3s; /* 色の変化を滑らかに */
+  }
+  
+  .btn-edit {
+    background-color: #4CAF50;
+    border: none; /* 枠線を消す */
+    box-shadow: none; 
+  }
+  
+  .btn-back {
+    background-color: #4d11f0;
+    border: none; /* 枠線を消す */
+    box-shadow: none; /* ボックスシャドウを消す */
+  }
+  
+  .btn:hover {
+    opacity: 0.8; /* ホバー時の透明度変更 */
+  }
+
+  .btn-primary {
+    background-color: #4CAF50; /* 緑色 */
+    border-color: #4CAF50; /* ボタンの枠も同じ色に */
+}
+
+.btn-secondary {
+    background-color: #4d11f0; /* 青色 */
+    border-color: #4d11f0; /* ボタンの枠も同じ色に */
+}
+</style>
+<html>
+<body>
+{% block content %}
+<div class="centered-container">
+    <div class="content">
+        <h2>イベントの編集</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="buttons">
+                <button type="submit" class="btn btn-edit">更新</button>
+                <a href="{% url 'event_details' event_id=event.id %}" class="btn btn-back">戻る</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

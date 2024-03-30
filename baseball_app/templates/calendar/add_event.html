@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>試合追加 - プロ野球観戦記録アプリ</title>
+    <style>
+        h2 {
+    text-align: center; /* テキストを中央寄せに */
+    width: 100%; /* 幅を100%にして、中央寄せが適用されるようにする */
+        }
+        body {
+            display: flex;
+            justify-content: center; /* 中央に揃える */
+            align-items: center; /* 上下中央に揃える */
+            height: 100vh;
+            margin: 0;
+        }
+        .event-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 子要素を中央揃えに */
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-row {
+            margin-bottom: 10px;
+            width: 100%; /* フォームの幅を親要素に合わせる */
+            display: flex;
+            justify-content: space-between; /* ラベルとフォーム要素の間隔を均等に */
+            align-items: center; /* 縦方向の中央揃え */
+        }
+        .form-row label, .form-row input, .form-row select {
+            flex: 1; /* 各要素にフレックスアイテムの性質を適用 */
+            margin: 5px; /* 余白を設定 */
+        }
+
+        .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px; /* ボタン間のスペース */
+    font-size: 16px; /* テキストのサイズ */
+    text-align: center;
+    text-decoration: none;
+    color: white; /* テキストの色 */
+    background-color: #4CAF50; /* ボタンの背景色 */
+    border: none; /* ボーダーを削除 */
+    border-radius: 5px; /* 角を丸める */
+    cursor: pointer;
+    transition: background-color 0.3s; /* ホバー効果 */
+}
+
+.btn-secondary {
+    background-color: #4d11f0; /* ボタンの背景色 */
+    /* その他のスタイルは .btn と同様 */
+}
+        
+        .button-group {
+            display: flex;
+            justify-content: center; /* ボタンを中央揃えに */
+            gap: 10px; /* ボタン間の間隔を設定 */
+            width: 100%;
+            padding-top: 20px; /* 上部の余白を追加 */
+        }
+        .btn {
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            flex: none; /* ボタンのサイズを固定 */
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #4d11f0;
+            color: white;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; /* 子要素を縦に並べる */
+            justify-content: center; /* 子要素を水平方向の中心に配置 */
+            align-items: center; /* 子要素を垂直方向の中心に配置 */
+        }
+
+    </style>
+</head>
+<body>
+
+<h2>試合追加</h2>
+{% load static %}
+
+<form method="post" action="" class="event-form">
+    {% csrf_token %}
+    <div class="form-row">
+        <label for="{{ form.date.id_for_label }}">日付:</label>
+        {{ form.date }}
+    </div>
+    <div class="form-row">
+        <label for="{{ form.home_team.id_for_label }}">ホームチーム:</label>
+        {{ form.home_team }}
+    </div>
+    <div class="form-row">
+        <label for="{{ form.away_team.id_for_label }}">アウェイチーム:</label>
+        {{ form.away_team }}
+    </div>
+    <div class="form-row">
+        <label for="{{ form.stadium.id_for_label }}">球場:</label>
+        {{ form.stadium }}
+    </div>
+    <div class="form-row">
+        <label for="{{ form.start_time.id_for_label }}">開始時間:</label>
+        {{ form.start_time }}
+    </div>
+    <div class="button-group">
+        <button type="submit" class="btn btn-primary">試合を追加</button>
+        <a href="{% url 'calendar' %}" class="btn btn-secondary">カレンダーに戻る</a>
+    </div>
+</form>
+
+</body>
+</html>
+
+
