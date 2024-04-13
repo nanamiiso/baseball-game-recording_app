@@ -105,3 +105,5 @@ def edit_event(request, event_id):
     return render(request, 'calendar/edit_event.html', {'form': form, 'event': event})
 
 
+def top_page(request):
+    return render(request, 'portfolio/top_page.html')

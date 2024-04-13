@@ -7,9 +7,10 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from .forms import ChangeUsernameForm, ChangeEmailForm, ChangePasswordForm
-from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages 
 import logging
+
+
 
 # Create your views here.
 def user_list(request):

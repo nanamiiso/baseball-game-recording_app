@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from .import views
 from .views import calendar_view
+from django.conf import settings
+from django.conf.urls.static import static
 
  
 
@@ -30,10 +32,8 @@ urlpatterns = [
     path('events/data/', views.get_events, name='events_data'),
     path('event/delete/<int:event_id>/', views.delete_event, name='delete_event'),
     path('event/edit/<int:event_id>/', views.edit_event, name='edit_event'),
-
+    path('', views.top_page, name='top_page'), 
 ]
-
-
  
 
 

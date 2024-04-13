@@ -51,18 +51,14 @@
 
   </style>
   </head>
-
   <body>
 
         <h1 class="calendar-title">カレンダー</h1>
         <div class="buttons-container">
-          <a href="{% url 'add_event' %}" class="link-button">イベント追加</a>
+          <a href="{% url 'add_event' %}" class="link-button">試合追加</a>
           <a href="{% url 'user:index' %}" class="button button-home">ホームに戻る</a>
       </div>
         <div id='calendar'></div>
-
-       
-
 
 <script>
 $(document).ready(function() {
@@ -90,9 +86,6 @@ $(document).ready(function() {
     }
   });
 });
-
-
-    
 
   // ホームボタンのクリックイベントハンドラ
   $('#homeButton').on('click', function() {
