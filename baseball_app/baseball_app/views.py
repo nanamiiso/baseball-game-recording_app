@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 from .forms import EventForm
 from django.http import JsonResponse
 from .models import Event
-from django.views.decorators.csrf import csrf_protect
-from django.utils import timezone
 from django.shortcuts import get_object_or_404
 import logging
 logger = logging.getLogger(__name__)
@@ -12,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotAllowed
 from django.contrib import messages
 from .forms import EventEditForm
-
+from django.contrib.auth.decorators import login_required
 
 
 def calendar_view(request):
@@ -36,26 +34,23 @@ def calendar_view(request):
     # エラーなしでページをレンダリングする
     return render(request, 'calendar/calendar.html', {'form': form})
 
+@login_required
 def add_event(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
-            event = form.save()
-            # 正常に保存できたことをログ出力
-            print("Event saved:", event)
+            event = form.save(commit=False)
+            event.user = request.user  # ログインユーザーをイベントの所有者として設定
+            event.save()
+            events = Event.objects.filter(user=request.user)
             return redirect('calendar')
-        else:
-            # フォームにエラーがある場合は、エラーをログ出力
-            print("Form errors:", form.errors)
-            return render(request, 'calendar/add_event.html', {'form': form})
     else:
-        form = EventForm()
+        form = EventForm()  # GETリクエストの場合にフォームを生成
     return render(request, 'calendar/add_event.html', {'form': form})
 
-
+@login_required
 def get_events(request):
-    # Event モデルから全イベントを取得
-    events = Event.objects.all()
+    events = Event.objects.filter(user=request.user)
     event_data = []
     for event in events:
         try:

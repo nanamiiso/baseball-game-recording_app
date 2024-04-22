@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import time
+from django.contrib.auth.models import User
 
 
 class Team(models.Model):
@@ -15,6 +16,8 @@ class Stadium(models.Model):
         return self.name
 
 class Event(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='events')
+
     date = models.DateField(verbose_name='日付')
     home_team = models.ForeignKey(
         Team, 
