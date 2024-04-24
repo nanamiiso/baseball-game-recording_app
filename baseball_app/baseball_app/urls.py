@@ -33,7 +33,7 @@ urlpatterns = [
     path('event/delete/<int:event_id>/', views.delete_event, name='delete_event'),
     path('event/edit/<int:event_id>/', views.edit_event, name='edit_event'),
     path('', views.top_page, name='top_page'), 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
  
 
 
