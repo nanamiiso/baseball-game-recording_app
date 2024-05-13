@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>設定画面- プロ野球観戦記録アプリ</title>
+    <style>
+/* ボタンコンテナのスタイル */
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 縦方向の中心に配置 */
+            align-items: center; /* 横方向の中心に配置 */
+            height: 100vh;
+            text-align: center;
+        }
+
+        .inner-content {
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; /* ボタンを水平方向に中央に配置 */
+            align-items: center; /* ボタンを垂直方向に中央に配置 */
+            flex-wrap: wrap; /* 画面幅に応じて折り返す */
+            gap: 10px; /* ボタン間の余白 */
+            min-width: 1000px; /* 最小幅を指定 */
+        }
+
+        .button, .button-home {
+            padding: 10px 20px;
+            margin: 5px; /* 上下左右の余白 */
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            max-width: 200px; /* あまりに長くならないように */
+            transition: background-color 0.3s;
+        }
+
+        .button:hover, .button-home:hover {
+            background-color: #0056b3;
+            opacity: 0.8;
+        }
+
+
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="content">
+        <h2>設定画面</h2>
+        <div class="inner-content">
+            <div class="button-container">
+                <a href="{% url 'user:change_username' %}" class="button">ユーザーネームの変更</a>
+                <a href="{% url 'user:change_email' %}" class="button">メールアドレスの変更</a>
+                <a href="{% url 'user:change_password' %}" class="button">パスワードの変更</a>
+                <a href="{% url 'user:index' %}" class="button button-home">ホームに戻る</a>
+            </div>
+    </div>
+</body>
+</html>
+
+

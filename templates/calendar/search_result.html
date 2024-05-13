@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>検索結果</title>
+    <style>
+          h1 {
+            text-align: center; /* テキストを中央寄せに */
+            width: 100%; /* 幅を100%にして、中央寄せが適用されるようにする */
+            margin-top: 120px; /* 上側の余白を追加 */
+            margin-bottom: 20px; /* 下側の余白を追加 */
+        }
+        /* ul要素を中央揃え */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center; /* 水平方向に中央揃え */
+        }
+
+        /* li要素を中央揃え */
+        li {
+            margin-bottom: 10px; /* 各リストアイテムの下側に余白を追加 */
+        }
+
+        /* a要素をブロックレベル要素として設定し、中央揃え */
+        li a {
+            display: block; /* ブロックレベル要素として表示 */
+            text-decoration: none; /* 下線を除去 */
+            padding: 10px;
+            margin: 0 auto; /* 水平方向に中央揃え */
+            }
+        .button {
+                display: inline-block;
+                padding: 10px 20px;
+                margin: 0 10px; /* ボタン間のスペース */
+                font-size: 16px; /* テキストのサイズ */
+                text-align: center;
+                text-decoration: none;
+                color: white; /* テキストの色 */
+                background-color: #4d11f0; /* ボタンの背景色 */
+                border: none; /* ボーダーを削除 */
+                border-radius: 5px; /* 角を丸める */
+                cursor: pointer;
+                transition: background-color 0.3s; /* ホバー効果 */
+            } 
+
+        .button-group {
+            display: flex;
+            justify-content: center; /* ボタンを中央揃えに */
+            gap: 10px; /* ボタン間の間隔を設定 */
+            width: 100%;
+            padding-top: 100px; /* 上部の余白を追加 */
+        }    
+            .btn-primary {
+            background-color: #4d11f0;
+            color: white;
+        }    
+
+    </style>
+</head>
+<body>
+{% include 'header.html' %}
+    <h1>検索結果</h1>
+    <ul>
+        {% for event in events %}
+        <li><a href="{% url 'event_details' event_id=event.id %}">{{ event.date }} - 
+            {% if event.home_team %}
+                {{ event.home_team.name }}
+            {% else %}
+                No home team
+            {% endif %}
+            vs 
+            {% if event.away_team %}
+                {{ event.away_team.name }}
+            {% else %}
+                No away team
+            {% endif %}
+            at 
+            {% if event.stadium %}
+                {{ event.stadium.name }}
+            {% else %}
+                No stadium
+            {% endif %}
+        </li>
+    {% endfor %}
+    
+<div class="button-container"> 
+    <a href="{% url 'search' %}" class="button button-home">戻る</a>
+</div>    
+    </ul>
+</body>
+</html>
+
+

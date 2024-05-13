@@ -1,0 +1,54 @@
+<style>
+.nav-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    z-index: 1000;
+    margin-bottom: 50px; /* ヘッダーとコンテンツの間に50pxの余白を追加 */
+}
+
+
+.nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center; 
+}
+
+.nav-list li {
+    display: inline-block;
+    margin-left: 10px; /* ボタン間の余白 */
+}
+
+.nav-list li:first-child {
+    margin-left: 0; /* 最初のボタンには余白を設定しない */
+}
+
+.nav-list li a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.content {
+    margin-top: 70px; /* ヘッダーの下に70pxの余白を設定 */
+    padding: 20px;
+}
+</style>
+
+
+<header class="nav-bar">
+    <div class="logo"></div>
+    <nav>
+        <ul class="nav-list">
+            <li><a href="{% url 'user:index' %}">ホーム</a></li>
+            <li><a href="{% url 'calendar' %}">カレンダー</a></li>
+            <li><a href="{% url 'user:logout' %}">ログアウト</a></li>
+            <li><a href="{% url 'user:settings' %}">設定</a></li>
+        </ul>
+    </nav>
+</header>

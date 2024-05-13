@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<style>
+.content {
+    max-width: 600px; /* 任意の最大幅を設定 */
+    margin: 0 auto; /* 上下のマージンは0、左右のマージンは自動で中央揃え */
+    text-align: center; /* テキストを中央揃え */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* 中央揃え */
+    align-items: center; /* 垂直方向の中央揃え */
+    gap: 10px; /* ボタン間のスペース */
+  }
+  
+  .buttons {
+    margin-top: 20px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 5px; /* ボタン間の間隔 */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px; /* 角丸 */
+    transition: background-color 0.3s; /* 色の変化を滑らかに */
+  }
+  
+  .btn-edit {
+    background-color: #4CAF50;
+  }
+  
+  .btn-delete {
+    background-color: #f44336; /* 赤色 */
+    color: white;
+    border: none; /* 枠線を消す */
+    border-radius: 5px; /* 角丸のデザイン */
+    padding: 10px 20px; /* 内側の余白 */
+    margin: 0 15px; /* 外側の余白 */
+    cursor: pointer; /* カーソルを指マークに */
+    font-size: 16px; /* 文字サイズ */
+    box-shadow: none; /* 立体的な影を消す */
+    transition: background-color 0.3s; /* 背景色の変化をなめらかに */
+  }
+  
+  .btn-back {
+    background-color: #4d11f0; 
+  }
+  
+  .btn:hover {
+    opacity: 0.8; /* ホバー時の透明度変更 */
+  }
+</style>
+<html>
+<body>
+  {% include 'header.html' %}
+  <div class="content">
+    <h1>{{ event.home_team.name }} 対 {{ event.away_team.name }}</h1>
+    <p>日付: {{ event.date }}</p>
+    <p>開始時間: {{ event.start_time }}</p>
+    <p>球場: {{ event.stadium.name }}</p>
+    <p>スコア：{{ event.home_score }} 対 {{ event.away_score }}</p>
+    <p>
+      コメント: {{ event.comment|linebreaksbr|truncatechars:200 }}
+  </p>
+
+    <div class="buttons">
+        <a href="{% url 'edit_event' event.id %}" class="btn btn-edit">編集</a>
+        <form action="{% url 'delete_event' event.id %}" method="post" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-delete">削除</button>
+        </form>
+        <a href="{% url 'calendar' %}" class="btn btn-back">カレンダーに戻る</a>
+    </div>  
+  </div>
+</body>
+</html>

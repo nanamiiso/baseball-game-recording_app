@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>試合検索</title>
+    <style>
+        h1 {
+            text-align: center; /* テキストを中央寄せに */
+            width: 100%; /* 幅を100%にして、中央寄せが適用されるようにする */
+            margin-top: 80px; /* 上側の余白を追加 */
+            margin-bottom: 20px; /* 下側の余白を追加 */
+        }
+
+        /* フォームを中央に配置するスタイル */
+        form {           
+            max-width: 600px; /* 任意の最大幅を設定 */
+            margin: 0 auto; /* 上下のマージンは0、左右のマージンは自動で中央揃え */
+            text-align: center; /* テキストを中央揃え */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 垂直方向の中央揃え */
+            justify-content: center; /* 中央揃え */
+            gap: 10px; /* ボタン間のスペース */
+        }
+
+        /* 入力フィールドとラベルのスタイル */
+        label, select, input[type="date"], input[type="text"] {
+            display: inline-block;
+            margin-bottom: 10px;
+            vertical-align: top; /* 入力フィールドを上端に揃える */
+        }
+
+        /* ラベルのスタイル */
+        label {
+            width: 100px; /* ラベルの固定幅 */
+            text-align: right; /* ラベルのテキストを右寄せ */
+            margin-right: 20px; /* ラベルと入力フィールドの間隔を調整 */
+        }
+        /* ボタンのスタイル */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            gap: 10px;
+            margin-right: 10px; /* ボタン間の右側の余白 */
+            margin-top: 50px;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        .button-secondary {
+            background-color: #4d11f0; /* ボタンの背景色 */
+    /* その他のスタイルは .btn と同様 */
+        }
+
+        /* ボタンのホバースタイル */
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .button-secondary {
+            background-color: #4d11f0;
+            color: white;
+        }
+   
+
+    </style>
+</head>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+    <meta charset="UTF-8">
+    <title>試合検索</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <h1>試合検索</h1>
+    <form action="{% url 'search_result' %}" method="get"> <!-- 修正 -->
+        <label for="start_date">開始日:</label>
+        <input type="date" id="start_date" name="start_date">
+
+        <label for="end_date">終了日:</label>
+        <input type="date" id="end_date" name="end_date">
+        
+        <label for="home_team">ホームチーム:</label>
+        <select id="home_team" name="home_team">
+            <option value="">ーーーーー</option>
+            <option value="" selected>すべてのチーム</option>
+            {% for team in teams_list %}
+                <option value="{{ team.id }}">{{ team.name }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="away_team">アウェイチーム:</label>
+        <select id="away_team" name="away_team">
+            <option value="">ーーーーー</option>
+            <option value="" selected>すべてのチーム</option>
+            {% for team in teams_list %}
+                <option value="{{ team.id }}">{{ team.name }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="stadium">球場:</label>
+        <select id="stadium" name="stadium">
+            <option value="">ーーーーー</option>
+            <option value="" selected>すべての球場</option>
+            {% for stadium in stadiums_list %}
+                <option value="{{ stadium.id }}">{{ stadium.name }}</option>
+            {% endfor %}
+        </select>
+    <div class="button-container"> 
+        <button type="submit" class="button">検索</button>
+        <a href="{% url 'calendar' %}" class="button button-secondary">戻る</a>
+    </div>    
+
+    </form>
+</body>
+</html>
+
+
+    
+
+

@@ -1,0 +1,70 @@
+from django.db import models
+from datetime import time
+from django.contrib.auth.models import User
+
+
+
+class Team(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Stadium(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Event(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='events')
+
+    date = models.DateField(verbose_name='日付')
+    home_team = models.ForeignKey(
+        Team, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        verbose_name='ホームチーム' # verbose_name を追加
+        
+    )
+    away_team = models.ForeignKey(
+        Team, 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True, 
+        verbose_name='アウェイチーム',
+        related_name='away_events'
+    )
+    stadium = models.ForeignKey(
+        Stadium, 
+        on_delete=models.CASCADE, 
+        related_name='events', 
+        null=True, 
+        verbose_name='球場'  # verbose_name を追加
+    )
+    start_time = models.TimeField(verbose_name='試合開始時間', default=time(12, 0))
+    home_score = models.IntegerField(blank=True, null=True)
+    away_score = models.IntegerField(blank=True, null=True)   
+    comment = models.TextField(blank=True, null=True) 
+
+# search_result関数がユーザーがログインして
+ 
+
+    def clean(self):
+        super().clean()
+        # 自動計算: ホームスコアとアウェイスコアが両方入力された場合に試合結果を計算
+        if self.home_score is not None and self.away_score is not None:
+            if self.home_score > self.away_score:
+                self.result = "ホームチームの勝利"
+            elif self.home_score < self.away_score:
+                self.result = "アウェイチームの勝利"
+            else:
+                self.result = "引き分け"
+
+    def __str__(self):
+        return f"{self.date} - {self.home_team} vs {self.away_team} at {self.stadium}"
+
+    
+  
+
+

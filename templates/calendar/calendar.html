@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>プロ野球観戦記録アプリ</title>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/ja.js'></script>
+
+<style>
+  #calendar {
+    max-width: 1500px; /* 最大幅を設定 */
+    margin: 0 auto; /* 水平方向に中央揃え */
+    height: 50px; /* カレンダーの高さを設定 */
+}
+
+.calendar-title {
+  text-align: center;
+}
+
+        .buttons-container {
+            text-align: center; /* Center the container of the buttons */
+        }
+
+        .link-button, .button-home {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px; /* Spacing between buttons */
+            text-decoration: none;
+            color: #fff; /* Text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Hover effect */
+            font-size: 16px;
+        }
+
+        .link-button {
+            background-color: #4CAF50; /* Green color */
+        }
+
+        .button-home {
+            background-color: #4d11f0; /* Blue color */
+        }
+
+        .link-button:hover, .button-home:hover {
+            opacity: 0.8; /* Hover opacity change */
+        }
+
+/* ボタンを配置するコンテナー用のスタイル */
+.buttons-container {
+  text-align: left; /* 左寄せにする */
+  padding: 10px; /* コンテナーのパディング */
+}
+
+  </style>
+  </head>
+  <body>
+    {% include 'header.html' %}
+        <h1 class="calendar-title">カレンダー</h1>
+        <div class="buttons-container">
+          <a href="{% url 'add_event' %}" class="link-button">試合追加</a>
+          <a href="{% url 'search' %}" class="link-button">検索</a>
+          <a href="{% url 'user:index' %}" class="button button-home">ホームに戻る</a>
+      </div>
+        <div id='calendar'></div>
+
+<script>
+$(document).ready(function() {
+  $('#calendar').fullCalendar({
+    // その他の設定...
+    header: {
+        left: 'prev',
+        center: 'title', // 月のタイトルを中央に配置
+        right: 'next'
+    },
+    events: function(start, end, timezone, callback) {
+      $.ajax({
+        url: '/events/data/',
+        dataType: 'json',
+        data: {
+          start: start.format(),
+          end: end.format()
+        },
+        success: function(doc) {
+          callback(doc);
+        },
+        error: function() {
+          alert('イベントの取得に失敗しました。');
+        }
+      });
+    },
+    eventRender: function(event, element) {
+      element.find('.fc-time').text('');  // 時間を空にする
+      element.find('.fc-title').text(event.title);  // タイトルを更新
+    }
+  });
+  });
+
+
+
+  // ホームボタンのクリックイベントハンドラ
+  $('#homeButton').on('click', function() {
+    window.location.href = '/user/index/';
+  });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">     
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロ野球観戦記録アプリ</title>
+    <style>
+        .content {
+         max-width: 600px; /* 任意の最大幅を設定 */
+         margin: 0 auto; /* 上下のマージンは0、左右のマージンは自動で中央揃え */
+         text-align: center; /* テキストを中央揃え */
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+       }
+
+       .content {
+            max-width: 600px; /* 任意の最大幅を設定 */
+            margin: 0 auto; /* 上下のマージンは0、左右のマージンは自動で中央揃え */
+            text-align: center; /* テキストを中央揃え */
+        }
+        ul {
+            list-style-type: none; /* 箇条書きのマーカーを削除 */
+            padding: 0; /* パディングを削除 */
+            display: flex; /* 横並びにする */
+            justify-content: space-around; /* 要素を等間隔で配置 */
+        }
+        li {
+            margin: 10px; /* 各項目のマージンを設定 */
+        }
+
+        .access-button{
+            display: inline-block;
+            background-color: #008CBA;
+            color: white;
+            padding: 10px 20px; /* 上下左右のパディング */
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px; /* 角丸 */
+            border: none;
+            cursor: pointer;
+        }
+        
+        .access-button:hover {
+            background-color: #005f6b; /* ホバーエフェクト時の背景色を変更 */
+        }
+     </style> 
+</head>
+<body>
+    <div class="content ">
+        <h1>作品No.1 プロ野球観戦記録アプリ</h1>
+        {% load static %}
+        <img src="https://i.imgur.com/7fQklY6.png">
+        <p class="app-description">プロ野球を観戦した日付、球場、対戦チーム、その日の勝敗、試合についての感想やコメントを入力出来る
+            アプリケーション。カレンダー機能で過去の観戦記録の表示、今後の試合観戦の予定を入力出来るようになっており、観戦記録は検索機能で探すことも可能になっている。</p>
+        <ul>
+            <li><a href="/media/portfolio/企画書.pdf" class="button">企画書</a></li>
+            <li><a href="/media/portfolio/wireframes.svg" class="button">画面遷移図</a></li>
+            <li><a href="/media/portfolio/ER図_1.svg" class="button">ER図</a></li>
+        </ul>
+        <a href="{% url 'user:index' %}" class="button access-button">このアプリにアクセス</a> 
+    </div>
+</body>
+</html>
