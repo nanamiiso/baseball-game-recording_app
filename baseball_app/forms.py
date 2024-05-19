@@ -55,7 +55,6 @@ class EventEditForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ['date', 'home_team', 'away_team', 'stadium', 'start_time', 'home_score', 'away_score', 'comment']
-        fields = '__all__'
         # フィールドの入力ウィジェットをカスタマイズする場合は、widgets を使います
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
