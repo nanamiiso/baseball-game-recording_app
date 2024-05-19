@@ -60,9 +60,7 @@
     <p>開始時間: {{ event.start_time }}</p>
     <p>球場: {{ event.stadium.name }}</p>
     <p>スコア：{{ event.home_score }} 対 {{ event.away_score }}</p>
-    <p>
-      コメント: {{ event.comment|linebreaksbr|truncatechars:200 }}
-  </p>
+    
 
     <div class="buttons">
         <a href="{% url 'edit_event' event.id %}" class="btn btn-edit">編集</a>

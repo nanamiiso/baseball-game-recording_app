@@ -63,21 +63,24 @@ def user_login(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
-            email = login_form.cleaned_data.get('email') 
+            email = login_form.cleaned_data.get('email')
             password = login_form.cleaned_data.get('password')
-            user = EmailBackend().authenticate(request, email=email, password=password)
+            backend = EmailBackend()
+            user = backend.authenticate(request, email=email, password=password)
             if user:
                 if user.is_active:
+                    user.backend = 'baseball_app.authentication.EmailBackend'  # ここでバックエンドを設定
                     login(request, user)
                     return redirect('user:index')
                 else:
-                    return HttpResponse('アカウントがアクティブでないです')
+                    return HttpResponse('アカウントがアクティブではありません')
             else:
-                return HttpResponse('ユーザーネームかメールアドレスかパスワードが正しくありません')
+                return HttpResponse('メールアドレスかパスワードが正しくありません')
     else:
-        login_form = LoginForm()  # POSTでない場合は空のフォームを渡す
+        login_form = LoginForm()
 
     return render(request, 'user/login.html', {'login_form': login_form})
+
 @login_required
 def user_logout(request):
     logout(request)

@@ -148,3 +148,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTHENTICATION_BACKENDS = [
+    'baseball_app.authentication.EmailBackend',  # カスタムバックエンド
+    'django.contrib.auth.backends.ModelBackend', # デフォルトのバックエンド
+]

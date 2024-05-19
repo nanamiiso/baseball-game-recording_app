@@ -58,8 +58,8 @@
     <!-- 認証済みユーザー向けのナビゲーションバー -->
     <div class="nav-bar-authenticated">
         <a href="{% url 'calendar' %}" class="button">カレンダー</a>
-        <a href="{% url 'user:logout' %}" class="button">ログアウト</a>
         <a href="{% url 'user:settings' %}" class="button">設定</a>
+        <a href="{% url 'user:logout' %}" class="button">ログアウト</a>
     </div>
 {% else %}
     <!-- ログインしていないユーザー向けのナビゲーションバー -->
