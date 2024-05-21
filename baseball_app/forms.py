@@ -59,7 +59,16 @@ class EventEditForm(forms.ModelForm):
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'start_time': forms.TimeInput(attrs={'type': 'time'}),
+            'comment': forms.Textarea(attrs={'maxlength': '200'}),
         }  
+
+        def clean_comment(self):
+            comment = self.cleaned_data.get('comment')
+        # 改行を除いた文字数でカウントする
+            comment_length = len(comment.replace('\n', ''))
+            if comment_length > 200:
+                raise forms.ValidationError('コメントは200文字以下で入力してください。')
+            return comment
     
 
 class CombinedScoreForm(forms.ModelForm):

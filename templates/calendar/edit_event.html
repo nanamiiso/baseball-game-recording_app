@@ -78,7 +78,15 @@ function updateScores(score) {
     document.getElementById("id_away_score").value = awayScore;
 }
     </script>
-    
+    <script>
+      document.getElementById('score-form').addEventListener('submit', function(event) {
+          var comment = document.getElementById('id_comment').value;
+          if (comment.length > 200) {
+              alert('コメントは200文字以下で入力してください。');
+              event.preventDefault(); // フォームの送信を中止
+          }
+      });
+  </script>
     {% endblock %}
     </body>
     </html>
